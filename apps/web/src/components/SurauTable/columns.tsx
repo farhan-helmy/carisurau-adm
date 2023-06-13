@@ -17,7 +17,7 @@ export type Surau = {
 
 const approveSurau = async (id: string) => {
   console.log(id)
-  const res = await fetch(`http://localhost:8000/surau/${id}`, {
+  const res = await fetch(`http://100.83.54.101:8000/surau/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

@@ -19,7 +19,7 @@ const SurauTable = () => {
   const [surauData, setSurauData] = useState<Surau[]>([]);
 
   const getSurauData = async () => {
-    const response = await fetch("http://localhost:8000/surau");
+    const response = await fetch("http://100.83.54.101:8000/surau");
     const data = await response.json();
     setSurauData(data);
   };
