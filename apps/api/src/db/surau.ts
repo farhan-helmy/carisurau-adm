@@ -18,18 +18,45 @@ export const getAllSurau = async (): Promise<Surau[]> => {
       .leftJoin("State", "Surau.state_id", "State.id")
       .leftJoin("District", "Surau.district_id", "District.id")
       .leftJoin("Mall", "Surau.mall_id", "Mall.id");
-    return surauData
+    return surauData;
   } catch (err: any) {
     console.log(err);
-    return err
+    return err;
+  }
+};
+
+export const getSurau = async (id: string): Promise<Surau> => {
+  try {
+    console.log(id)
+    const surauData: any = await knexPg<any>("Surau")
+      .where("unique_name", id)
+      .select(
+        "Rating.id as rating_id",
+        "Rating.review as review",
+      )
+      .leftJoin("Rating", "Surau.id", "Rating.surau_id")
+
+    return surauData;
+  } catch (err: any) {
+    console.log(err);
+    return err;
   }
 };
 
 export const updateSurau = async (id: string): Promise<Surau[]> => {
-    const surauData: Surau[] = await knexPg<Surau[]>("Surau")
-    .where('unique_name', id)
-    .update('is_approved', true)
+  const surauData: Surau[] = await knexPg<Surau[]>("Surau")
+    .where("unique_name", id)
+    .update("is_approved", true);
 
-    console.log(surauData)
-    return surauData
-}
+  console.log(surauData);
+  return surauData;
+};
+
+export const removeSurau = async (id: string): Promise<Surau[]> => {
+  const surauData: Surau[] = await knexPg<Surau[]>("Surau")
+    .where("unique_name", id)
+    .del();
+
+  console.log(surauData);
+  return surauData;
+};

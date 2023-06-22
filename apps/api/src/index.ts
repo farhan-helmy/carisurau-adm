@@ -4,6 +4,7 @@ import cors from "cors";
 import Router from "./routes";
 import swaggerUi from "swagger-ui-express";
 
+// eslint-disable-next-line turbo/no-undeclared-env-vars
 const PORT = process.env.PORT || 8000;
 
 const app: Application = express();
@@ -15,6 +16,7 @@ app.use(cors(
     {
         origin: [
             "http://localhost:5173",
+            "http://localhost:5174",
             "http://100.83.54.101:5174"
         ]
     }

@@ -1,31 +1,42 @@
-import type { ColumnDef } from "@tanstack/react-table"
-import {createColumnHelper} from '@tanstack/react-table'
- 
+import type { ColumnDef } from "@tanstack/react-table";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Surau = {
-  id: string
-  name: string
-  unique_name: string
-  is_approved: boolean
-  is_approved_at: Date | null
-  created_at: Date
-  state: string
-  district: string
-  brief_direction: string
-}
+  id: string;
+  name: string;
+  unique_name: string;
+  is_approved: boolean;
+  is_approved_at: Date | null;
+  created_at: Date;
+  state: string;
+  district: string;
+  brief_direction: string;
+};
 
 const approveSurau = async (id: string) => {
-  console.log(id)
-  const res = await fetch(`http://100.83.54.101:8000/surau/${id}`, {
+  console.log(id);
+  const res = await fetch(import.meta.env.VITE_API_URL + `surau/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-    }
-  })
-  console.log(res)
-}
- 
+    },
+  });
+  console.log(res);
+};
+
+const deleteSurau = async (id: string) => {
+  console.log(id);
+  const res = await fetch(import.meta.env.VITE_API_URL + `surau/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log(res);
+};
+
 export const columns: ColumnDef<Surau>[] = [
   {
     accessorKey: "name",
@@ -34,6 +45,13 @@ export const columns: ColumnDef<Surau>[] = [
   {
     accessorKey: "unique_name",
     header: "Id",
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center justify-left gap-2">
+          <Link to={`/surau/${row.original.unique_name}`}>{row.original.unique_name}</Link>
+        </div>
+      );
+    }
   },
   {
     accessorKey: "is_approved",
@@ -57,7 +75,8 @@ export const columns: ColumnDef<Surau>[] = [
   },
   {
     id: "actions",
-    cell: ({row}) => {
+    cell: ({ row }) => {
+      const [openViewModal, setOpenViewModal] = useState(false);
       return (
         <div className="flex items-center justify-center gap-2">
           <button
@@ -68,7 +87,7 @@ export const columns: ColumnDef<Surau>[] = [
           </button>
           <button
             className="bg-red-500 hover:bg-red-700 text-white font-bold rounded-md"
-            onClick={() => alert(`Reject ${row}`)}
+            onClick={() => deleteSurau(row.original.unique_name)}
           >
             Reject
           </button>
@@ -79,7 +98,7 @@ export const columns: ColumnDef<Surau>[] = [
             View
           </button>
         </div>
-      )
+      );
     },
-  }
-]
+  },
+];

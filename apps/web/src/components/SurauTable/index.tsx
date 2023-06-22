@@ -19,7 +19,8 @@ const SurauTable = () => {
   const [surauData, setSurauData] = useState<Surau[]>([]);
 
   const getSurauData = async () => {
-    const response = await fetch("http://100.83.54.101:8000/surau");
+    console.log(import.meta.env.API_URL)
+    const response = await fetch(import.meta.env.VITE_API_URL+"surau");
     const data = await response.json();
     setSurauData(data);
   };

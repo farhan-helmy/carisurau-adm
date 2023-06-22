@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import './index.css'
 import SurauPage from './pages/Surau.tsx';
+import ViewSurauPage from './pages/ViewSurau.tsx';
+import UserPage from './pages/User.tsx';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
       {
         path: "/surau",
         element: <SurauPage />
+      },
+      {
+        path: "/surau/:id",
+        element: <ViewSurauPage />,
+      },
+      {
+        path: "/user",
+        element: <UserPage />,
       }
     ]
   },
