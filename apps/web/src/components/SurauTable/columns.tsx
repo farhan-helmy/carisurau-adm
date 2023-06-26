@@ -80,19 +80,19 @@ export const columns: ColumnDef<Surau>[] = [
       return (
         <div className="flex items-center justify-center gap-2">
           <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold rounded-md"
+            className="bg-green-500 hover:bg-green-700 text-white p-2 font-bold rounded-md"
             onClick={() => approveSurau(row.original.unique_name)}
           >
             Approve
           </button>
           <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold rounded-md"
+            className="bg-red-500 hover:bg-red-700 text-white p-2 font-bold rounded-md"
             onClick={() => deleteSurau(row.original.unique_name)}
           >
             Reject
           </button>
           <button
-            className="bg-blue-500 hover:bg-red-700 text-white font-bold rounded-md"
+            className="bg-blue-500 hover:bg-red-700 text-white p-2 font-bold rounded-md"
             onClick={() => alert(`direction ${row.original.brief_direction}`)}
           >
             View
