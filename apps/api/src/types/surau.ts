@@ -8,4 +8,7 @@ export type Surau = {
     district: string
     mall: string
     brief_direction: string
+    is_qiblat_certified: boolean
+    user_id: string
+    is_solat_jumaat: boolean
 } | undefined

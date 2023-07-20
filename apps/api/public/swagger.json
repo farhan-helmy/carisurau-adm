@@ -62,6 +62,63 @@
 					"name"
 				],
 				"type": "object"
+			},
+			"Surau": {
+				"properties": {
+					"is_solat_jumaat": {
+						"type": "boolean"
+					},
+					"user_id": {
+						"type": "string"
+					},
+					"is_qiblat_certified": {
+						"type": "boolean"
+					},
+					"brief_direction": {
+						"type": "string"
+					},
+					"mall": {
+						"type": "string"
+					},
+					"district": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
+					"is_approved_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"created_at": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"is_approved": {
+						"type": "boolean"
+					},
+					"unique_name": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"is_solat_jumaat",
+					"user_id",
+					"is_qiblat_certified",
+					"brief_direction",
+					"mall",
+					"district",
+					"state",
+					"is_approved_at",
+					"created_at",
+					"is_approved",
+					"unique_name",
+					"name"
+				],
+				"type": "object"
 			}
 		},
 		"securitySchemes": {}
@@ -119,6 +176,33 @@
 				},
 				"security": [],
 				"parameters": []
+			},
+			"post": {
+				"operationId": "PostSurau",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SurauResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Surau"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/surau/{id}": {

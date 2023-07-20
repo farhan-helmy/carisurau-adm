@@ -1,7 +1,9 @@
 import express from "express";
-import PingController from "../controllers/ping";
-import SurauController from "../controllers/surau";
-import RatingController from "../controllers/rating";
+import PingController from "../controllers/pingController";
+import SurauController from "../controllers/surauController";
+import RatingController from "../controllers/ratingController";
+import { validate } from "../middleware/validate";
+import { SurauSchema } from "../schema/surauSchema";
 
 const router = express.Router();
 const surauController = new SurauController();
@@ -15,6 +17,11 @@ router.get("/health", async (_req, res) => {
 
 router.get("/surau", async (_req, res) => {
   const response = await surauController.getSurau();
+  return res.send(response);
+});
+
+router.post("/surau", validate(SurauSchema), async (req, res) => {
+  const response = await surauController.postSurau(req.body);
   return res.send(response);
 });
 

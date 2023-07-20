@@ -43,6 +43,30 @@ export const getSurau = async (id: string): Promise<Surau> => {
   }
 };
 
+export const addSurau = async (surau: Surau): Promise<Surau> => {
+  try {
+    const surauData: any = await knexPg<any>("Surau").insert({
+      name: surau?.name,
+      unique_name: surau?.unique_name,
+      is_approved: false,
+      created_at: new Date(),
+      is_approved_at: "",
+      brief_direction: surau?.brief_direction,
+      state_id: surau?.state,
+      district_id: surau?.district,
+      mall_id: surau?.mall,
+      is_qiblat_certified: surau?.is_qiblat_certified,
+      user_id: surau?.user_id,
+      is_solat_jumaat: surau?.is_solat_jumaat,
+    });
+    console.log(surauData);
+    return surauData;
+  }catch(err: any){
+    console.log(err)
+    return err
+  }
+};
+
 export const updateSurau = async (id: string): Promise<Surau[]> => {
   const surauData: Surau[] = await knexPg<Surau[]>("Surau")
     .where("unique_name", id)
