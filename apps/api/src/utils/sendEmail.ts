@@ -4,8 +4,8 @@ export const sendEmail = async () => {
     const client = new SESv2Client({
         region: "ap-southeast-1",
         credentials: {
-            accessKeyId: "AKIASY5CT7NOGYFBLV7E",
-            secretAccessKey: "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",
+            accessKeyId: "",
+            secretAccessKey: "",
         },
     });
     const input = { // SendEmailRequest
