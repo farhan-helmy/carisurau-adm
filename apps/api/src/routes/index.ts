@@ -4,6 +4,7 @@ import SurauController from "../controllers/surauController";
 import RatingController from "../controllers/ratingController";
 import { validate } from "../middleware/validate";
 import { SurauSchema } from "../schema/surauSchema";
+import { sendEmail } from "../utils/sendEmail";
 
 const router = express.Router();
 const surauController = new SurauController();
@@ -44,5 +45,11 @@ router.delete("/rating/:id", async (req, res) => {
     const response = await ratingController.deleteRating(req.params.id);
     return res.sendStatus(200);
 });
+
+router.post("/sendmailtest", async (req, res) => {
+    const response = await sendEmail()
+    console.log(response)
+    return res.sendStatus(200);
+})
 
 export default router;

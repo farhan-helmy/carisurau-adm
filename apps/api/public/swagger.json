@@ -63,8 +63,25 @@
 				],
 				"type": "object"
 			},
+			"SurauPhoto": {
+				"properties": {
+					"file_path": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"file_path"
+				],
+				"type": "object"
+			},
 			"Surau": {
 				"properties": {
+					"surau_photos": {
+						"items": {
+							"$ref": "#/components/schemas/SurauPhoto"
+						},
+						"type": "array"
+					},
 					"is_solat_jumaat": {
 						"type": "boolean"
 					},
@@ -102,9 +119,13 @@
 					},
 					"name": {
 						"type": "string"
+					},
+					"id": {
+						"type": "string"
 					}
 				},
 				"required": [
+					"surau_photos",
 					"is_solat_jumaat",
 					"user_id",
 					"is_qiblat_certified",
@@ -116,7 +137,8 @@
 					"created_at",
 					"is_approved",
 					"unique_name",
-					"name"
+					"name",
+					"id"
 				],
 				"type": "object"
 			}

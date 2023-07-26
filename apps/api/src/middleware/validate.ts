@@ -2,6 +2,17 @@ import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 
 
+export const validateToken = () => {
+  return (req: Request, res: Response, next: NextFunction) => {
+      const token = req.headers.authorization;
+      if(token) {
+          next()
+      } else {
+          res.status(401).json({message: "Unauthorized"})
+      }
+  }
+}
+
 export function validate(schema: z.Schema<any>) {
     return (req: Request, res: Response, next: NextFunction) => {
       const data = req.body;
