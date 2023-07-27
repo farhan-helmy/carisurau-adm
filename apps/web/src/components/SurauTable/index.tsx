@@ -19,7 +19,7 @@ const SurauTable = () => {
   const [surauData, setSurauData] = useState<Surau[]>([]);
 
   const getSurauData = async () => {
-    console.log(import.meta.env.API_URL)
+    console.log(import.meta.env.VITE_API_URL)
     const response = await fetch(import.meta.env.VITE_API_URL+"surau");
     const data = await response.json();
     setSurauData(data);

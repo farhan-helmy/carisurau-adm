@@ -1,5 +1,6 @@
 import knexPg from ".";
 import { Surau, SurauPhoto } from "../types/surau";
+import { sendEmail } from "../utils/sendEmail";
 
 export const getAllSurau = async (): Promise<Surau[]> => {
   try {
@@ -82,12 +83,22 @@ export const addSurau = async (surau: Surau): Promise<Surau> => {
 
 export const updateSurau = async (id: string): Promise<Surau[]> => {
   try{
+    const user = await knexPg<any>("Surau")
+    .select(
+      "Surau.name as name",
+      "Surau.unique_name as unique_name",
+      "User.email as email",
+    )
+    .where("unique_name", id)
+    .leftJoin("User", "Surau.user_id", "User.id")
+    .first()
+    
     const surauData: Surau[] = await knexPg<Surau[]>("Surau")
     .where("unique_name", id)
     .update("is_approved", true);
-
-  console.log(surauData);
   
+    await sendEmail(user)
+    
   return surauData;
   }catch(err: any){
     console.log(err)

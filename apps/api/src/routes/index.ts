@@ -47,8 +47,8 @@ router.delete("/rating/:id", async (req, res) => {
 });
 
 router.post("/sendmailtest", async (req, res) => {
-    const response = await sendEmail()
-    console.log(response)
+    // const response = await sendEmail()
+    // console.log(response)
     return res.sendStatus(200);
 })
 
