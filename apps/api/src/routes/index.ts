@@ -10,6 +10,10 @@ const router = express.Router();
 const surauController = new SurauController();
 const ratingController = new RatingController();
 
+router.post("/auth/social", async (req, res) => {
+  console.log(req.body)
+});
+
 router.get("/health", async (_req, res) => {
   const controller = new PingController();
   const response = await controller.getMessage();

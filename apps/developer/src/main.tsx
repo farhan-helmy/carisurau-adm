@@ -12,6 +12,7 @@ import {
   SignUp,
 } from "@clerk/clerk-react";
 import DashboardPage from "./pages/dashboard.tsx";
+import CallbackPage from "./pages/callback.tsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <IndexPage />,
+      },
+      {
+        path: "/callback",
+        element: <CallbackPage />,
       },
       {
         path: "/sign-in/*",
