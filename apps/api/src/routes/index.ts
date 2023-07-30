@@ -4,19 +4,23 @@ import SurauController from "../controllers/surauController";
 import RatingController from "../controllers/ratingController";
 import { validate } from "../middleware/validate";
 import { SurauSchema } from "../schema/surauSchema";
-import { sendEmail } from "../utils/sendEmail";
+import AuthController from "../controllers/authController";
 
 const router = express.Router();
 const surauController = new SurauController();
 const ratingController = new RatingController();
+const pingController = new PingController();
+const authController = new AuthController();
 
 router.post("/auth/social", async (req, res) => {
   console.log(req.body)
+  const response = await authController.socialAuth(req.body);
+
+  console.log(response)
 });
 
 router.get("/health", async (_req, res) => {
-  const controller = new PingController();
-  const response = await controller.getMessage();
+  const response = await pingController.getMessage();
   return res.send(response);
 });
 

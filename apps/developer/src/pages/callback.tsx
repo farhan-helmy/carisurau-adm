@@ -2,14 +2,15 @@ import { useMutation } from "@tanstack/react-query";
 import { useUser, useAuth } from "@clerk/clerk-react";
 import { redirect } from "react-router-dom";
 import axios from "axios";
+import { useEffect } from "react";
 
 type UserData = {
   email: string;
   is_developer: boolean;
-  token: Promise<string | null>;
+  token: string | null;
 };
 export default function CallbackPage() {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const { getToken } = useAuth();
 
   const mutation = useMutation({
@@ -26,11 +27,21 @@ export default function CallbackPage() {
     },
   });
 
-  mutation.mutate({
-    email: user?.emailAddresses[0].toString() as string,
-    is_developer: true,
-    token: getToken().then((token) => token),
-  });
+  useEffect(() => {
+    if (isLoaded) {
+      getToken()
+        .then((token) => {
+          mutation.mutate({
+            email: user?.emailAddresses[0].toString() as string,
+            is_developer: true,
+            token: token,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [isLoaded]);
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
