@@ -1,7 +1,10 @@
 import express, { Application } from "express";
 import morgan from "morgan";
 import cors from "cors";
-import Router from "./routes";
+import surauRoute from "./routes/surauRoute";
+import authRoute from "./routes/authRoute";
+import pingRoute from "./routes/pingRoute";
+import ratingRoute from "./routes/ratingRoute";
 import swaggerUi from "swagger-ui-express";
 
 // eslint-disable-next-line turbo/no-undeclared-env-vars
@@ -36,7 +39,10 @@ app.use(
   );
   
 
-app.use(Router);
+app.use(surauRoute);
+app.use(authRoute);
+app.use(pingRoute);
+app.use(ratingRoute);
 
 app.listen(PORT, () => {
   console.log("Server is running on port", PORT);
