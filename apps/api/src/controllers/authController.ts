@@ -4,6 +4,7 @@ import { authenticateUser } from '../db/auth';
 export type AuthSocialBody = {
     email: string;
     token: string;
+    name: string;
 }
 
 export default class AuthController {
@@ -14,7 +15,8 @@ export default class AuthController {
         if (typeof token?.payload === 'object') {
           const res = authenticateUser({
             email: body.email,
-            sid: token.payload.sid
+            sid: token.payload.sid,
+            name: body.name
           })
 
           return res

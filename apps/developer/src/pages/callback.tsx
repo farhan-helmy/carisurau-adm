@@ -1,29 +1,32 @@
 import { useMutation } from "@tanstack/react-query";
 import { useUser, useAuth } from "@clerk/clerk-react";
-import { redirect } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 type UserData = {
   email: string;
-  is_developer: boolean;
   token: string | null;
+  name: string | null;
 };
+
 export default function CallbackPage() {
   const { user, isLoaded } = useUser();
   const { getToken } = useAuth();
+  const navigate = useNavigate();
 
   const mutation = useMutation({
-    mutationFn: (data: UserData) =>
-      axios.post(
+    mutationFn: async (data: UserData) =>
+      await axios.post(
         (import.meta.env.VITE_API_URL as string) + "/auth/social",
         data
       ),
     onSuccess: () => {
-      return redirect("/dashboard");
+      return navigate("/dashboard");
     },
-    onError: () => {
-      return redirect("/");
+    onError: (err) => {
+      console.log(err);
+      return navigate("/");
     },
   });
 
@@ -33,8 +36,8 @@ export default function CallbackPage() {
         .then((token) => {
           mutation.mutate({
             email: user?.emailAddresses[0].toString() as string,
-            is_developer: true,
             token: token,
+            name: user?.fullName as string,
           });
         })
         .catch((err) => {
