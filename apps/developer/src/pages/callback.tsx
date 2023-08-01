@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useUser, useAuth } from "@clerk/clerk-react";
-import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { authenticateUserSocial } from "../api/authApi";
 
 type UserData = {
   email: string;
@@ -16,12 +16,9 @@ export default function CallbackPage() {
   const navigate = useNavigate();
 
   const mutation = useMutation({
-    mutationFn: async (data: UserData) =>
-      await axios.post(
-        (import.meta.env.VITE_API_URL as string) + "/auth/social",
-        data
-      ),
-    onSuccess: () => {
+    mutationFn: (data: UserData) => authenticateUserSocial(data),
+    onSuccess: ({ data }) => {
+      localStorage.setItem("token", data.data.token);
       return navigate("/dashboard");
     },
     onError: (err) => {

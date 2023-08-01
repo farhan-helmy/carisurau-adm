@@ -16,7 +16,8 @@ export default class AuthController {
           const res = authenticateUser({
             email: body.email,
             sid: token.payload.sid,
-            name: body.name
+            name: body.name,
+            token: body.token
           })
 
           return res
