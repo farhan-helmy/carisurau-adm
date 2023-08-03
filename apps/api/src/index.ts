@@ -5,6 +5,7 @@ import surauRoute from "./routes/surauRoute";
 import authRoute from "./routes/authRoute";
 import pingRoute from "./routes/pingRoute";
 import ratingRoute from "./routes/ratingRoute";
+import appRoute from "./routes/appRoute";
 import swaggerUi from "swagger-ui-express";
 
 // eslint-disable-next-line turbo/no-undeclared-env-vars
@@ -43,6 +44,7 @@ app.use(surauRoute);
 app.use(authRoute);
 app.use(pingRoute);
 app.use(ratingRoute);
+app.use(appRoute);
 
 app.listen(PORT, () => {
   console.log("Server is running on port", PORT);
