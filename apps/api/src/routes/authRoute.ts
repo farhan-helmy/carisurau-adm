@@ -8,14 +8,13 @@ const authController = new AuthController();
 
 
 router.post("/auth/social", async (req, res) => {
-    const response = await authController.socialAuth(req.body);
-  
-    if(response.status === 500) {
-      return res.status(500).json(response.data).send();
-    }
+  const response = await authController.socialAuth(req.body);
 
-    return res.status(200).json(response.data).send();
-  });
+  if (response.status === 500) {
+    return res.status(500).json(response.data).send();
+  }
 
-  export default router;
-  
+  return res.status(200).json(response.data).send();
+});
+
+export default router;

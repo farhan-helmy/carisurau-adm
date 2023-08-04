@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 export type UserData = {
   email: string;
@@ -7,13 +7,12 @@ export type UserData = {
 };
 
 type AuthResponse = {
-  data: {
-    token: string;
-    email: string;
-    createdAt: string;
-    name: string;
-  };
+  token: string;
+  email: string;
+  createdAt: string;
+  name: string;
   status: number;
+  id: string;
 };
 
 export const authenticateUserSocial = async (data: UserData) => {

@@ -21,18 +21,18 @@ export const getAllSurau = async (): Promise<Surau[]> => {
       .leftJoin("State", "Surau.state_id", "State.id")
       .leftJoin("District", "Surau.district_id", "District.id")
       .leftJoin("Mall", "Surau.mall_id", "Mall.id");
-     
-      for(const data of surauData){
-        if(data) {
-          const surauPhoto = await knexPg<SurauPhoto>("SurauPhoto")
+
+    for (const data of surauData) {
+      if (data) {
+        const surauPhoto = await knexPg<SurauPhoto>("SurauPhoto")
           .select("file_path")
           .where("surau_id", data.id)
-          surau.push({
-            ...data,
-            surau_photos: surauPhoto
-          })
-        }
+        surau.push({
+          ...data,
+          surau_photos: surauPhoto
+        })
       }
+    }
     return surau;
   } catch (err: any) {
     console.log(err);
@@ -73,34 +73,34 @@ export const addSurau = async (surau: Surau): Promise<Surau> => {
       user_id: surau?.user_id,
       is_solat_jumaat: surau?.is_solat_jumaat,
     });
- 
+
     return surauData;
-  }catch(err: any){
+  } catch (err: any) {
     console.log(err)
     return err
   }
 };
 
 export const updateSurau = async (id: string): Promise<Surau[]> => {
-  try{
-    const user = await knexPg<any>("Surau")
-    .select(
-      "Surau.name as name",
-      "Surau.unique_name as unique_name",
-      "User.email as email",
-    )
-    .where("unique_name", id)
-    .leftJoin("User", "Surau.user_id", "User.id")
-    .first()
-    
+  try {
+    const data = await knexPg<any>("Surau")
+      .select(
+        "Surau.name as name",
+        "Surau.unique_name as unique_name",
+        "User.email as email",
+      )
+      .where("unique_name", id)
+      .leftJoin("User", "Surau.user_id", "User.id")
+      .first()
+
     const surauData: Surau[] = await knexPg<Surau[]>("Surau")
-    .where("unique_name", id)
-    .update("is_approved", true);
-  
-    await sendEmail(user)
-    
-  return surauData;
-  }catch(err: any){
+      .where("unique_name", id)
+      .update("is_approved", true);
+
+    await sendEmail(data)
+
+    return surauData;
+  } catch (err: any) {
     console.log(err)
     return err
   }

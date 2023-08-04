@@ -3,6 +3,7 @@ import { useUser, useAuth } from "@clerk/clerk-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authenticateUserSocial } from "../api/authApi";
+import { useAppStore } from "../store/appStore";
 
 type UserData = {
   email: string;
@@ -14,11 +15,13 @@ export default function CallbackPage() {
   const { user, isLoaded } = useUser();
   const { getToken } = useAuth();
   const navigate = useNavigate();
+  const appStore = useAppStore();
 
   const mutation = useMutation({
     mutationFn: (data: UserData) => authenticateUserSocial(data),
     onSuccess: ({ data }) => {
-      localStorage.setItem("token", data.data.token);
+      localStorage.setItem("token", data.token);
+      appStore.setId(data.id);
       return navigate("/dashboard");
     },
     onError: (err) => {
@@ -31,6 +34,7 @@ export default function CallbackPage() {
     if (isLoaded) {
       getToken()
         .then((token) => {
+          console.log(token);
           mutation.mutate({
             email: user?.emailAddresses[0].toString() as string,
             token: token,

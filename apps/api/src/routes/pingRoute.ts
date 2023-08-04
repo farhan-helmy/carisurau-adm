@@ -11,11 +11,4 @@ router.get("/health", async (_req, res) => {
   return res.send(response);
 });
 
-
-router.post("/sendmailtest", async (req, res) => {
-    // const response = await sendEmail()
-    // console.log(response)
-    return res.sendStatus(200);
-})
-
 export default router;
