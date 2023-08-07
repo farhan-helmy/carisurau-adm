@@ -13,10 +13,9 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
     const developer = await checkUser(decoded.id)
 
     if (!developer) {
-      return false
+      throw new Error('Unauthorized')
     }
-
-    return true
+    next()
   }
 }
 

@@ -4,12 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authenticateUserSocial } from "../api/authApi";
 import { useAppStore } from "../store/appStore";
-
-type UserData = {
-  email: string;
-  token: string | null;
-  name: string | null;
-};
+import { UserData } from "../api/appsApi";
 
 export default function CallbackPage() {
   const { user, isLoaded } = useUser();

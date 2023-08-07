@@ -6,6 +6,11 @@ export type UserData = {
     name: string | null;
 };
 
+type AppData = {
+    id: string;
+    name: string;
+}
+
 export const getApps = async (id: string) => {
 
     const axiosInstance = axios.create({
@@ -14,7 +19,7 @@ export const getApps = async (id: string) => {
         }
     });
 
-    return await axiosInstance.get(
+    return await axiosInstance.get<AppData[]>(
         (import.meta.env.VITE_API_URL as string) + `/app/developer/${id}`,
     )
 };

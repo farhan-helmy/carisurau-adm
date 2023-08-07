@@ -12,14 +12,12 @@ export type AppRequestBody = {
 }
 
 type AppResponse = {
-    status: number;
     result?: AppData[];
 }
 
 export default class PingController {
     public async getApp(developer_id: string): Promise<AppResponse> {
         const res = await getAllApp(developer_id)
-        console.log("aapp", res)
         return res
     }
     public async createApp(data: AppRequestBody): Promise<CreateAppResponse> {

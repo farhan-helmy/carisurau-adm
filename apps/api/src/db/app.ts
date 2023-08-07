@@ -12,13 +12,13 @@ export type AppData = {
 
 export const getAllApp = async (developer_id: string) => {
     try {
-        const result: AppData[] = await knexPg<AppData>("Application")
+        const data: AppData[] = await knexPg<AppData>("Application")
             .select("*")
             .where("developer_id", developer_id)
-        console.log(result)
-        return { status: 200, result }
+
+        return data
     } catch (err: any) {
-        return { error: err.message, status: 500 }
+        return err
     }
 }
 

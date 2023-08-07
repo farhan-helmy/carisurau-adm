@@ -15,18 +15,17 @@ export default function DashboardPage() {
     getApps(appStore.id as string)
   );
 
-  console.log(data);
+  console.log(data?.data.length);
+  if (isError) console.log(error);
 
-  // if (isError) console.log(error);
-
-  // if (isLoading) {
-  //   return (
-  //     <div className="flex flex-col justify-center items-center h-screen">
-  //       <div className="animate-spin rounded-full h-24 w-24 border-t-4 border-b-4 border-indigo-600"></div>
-  //       <div className="mt-2 text-xl ">loading ...</div>
-  //     </div>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <div className="flex flex-col justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-24 w-24 border-t-4 border-b-4 border-indigo-600"></div>
+        <div className="mt-2 text-xl ">loading ...</div>
+      </div>
+    );
+  }
 
   return (
     <DashboardLayout>
@@ -37,10 +36,30 @@ export default function DashboardPage() {
         >
           Create app
         </button>
-        <div>{user?.emailAddresses[0].toString()}</div>
-        <CreateAppForm open={open} setOpen={setOpen} />
-        {/* <button onClick={() => void signOut()}>Log Out</button> */}
       </div>
+      <div>
+        <div className="mt-4">
+          {data?.data.length === 0 ? (
+            <div className="flex flex-col justify-center items-center mt-12">
+              <div className="text-2xl font-semibold">No apps created</div>
+              <div className="mt-2 text-xl text-gray-500">
+                Create your first app
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {data?.data.map((app) => (
+                <div key={app.id} className="bg-white shadow-sm rounded-md p-4">
+                  <div className="flex justify-between">
+                    <div className="text-xl font-semibold">{app.name}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      <CreateAppForm open={open} setOpen={setOpen} />
     </DashboardLayout>
   );
 }

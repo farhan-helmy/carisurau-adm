@@ -1,21 +1,21 @@
 import express from "express";
 import AppController from "../controllers/appController";
-import { validate } from "../middleware/validate";
+import { validate, validateToken } from "../middleware/validate";
 import { AppSchema } from "../schema/appSchema";
 
 const router = express.Router();
 
 const appController = new AppController();
 
-router.get("/app/developer/:id", validate(AppSchema), async (req, res) => {
-    console.log(req.params)
+router.get("/app/developer/:id", validateToken, async (req, res) => {
+
     const response = await appController.getApp(req.params["id"]);
 
-    if (response.status === 500) {
-        return res.status(500).json(response).send();
-    }
+    // if (response === 500) {
+    //     return res.status(500).json(response).send();
+    // }
 
-    return res.status(200).json(response).send();
+    return res.status(200).send(response);
 });
 
 router.post("/app", validate(AppSchema), async (req, res) => {
