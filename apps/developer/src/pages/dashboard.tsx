@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { useClerk, useUser } from "@clerk/clerk-react";
 import DashboardLayout from "../components/layouts/DashboardLayout";
-import CreateAppForm from "../components/CreateAppForm";
+import CreateAppForm from "../components/app/CreateAppForm";
 import { useQuery } from "@tanstack/react-query";
 import { getApps } from "../api/appsApi";
 import { useAppStore } from "../store/appStore";
 
 export default function DashboardPage() {
   const [open, setOpen] = useState(false);
-  const { signOut } = useClerk();
-  const { user } = useUser();
   const appStore = useAppStore();
   const { isLoading, isError, data, error } = useQuery(["apps"], () =>
     getApps(appStore.id as string)

@@ -1,5 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useAppStore } from "../../store/appStore";
+import { postApp } from "../../api/appsApi";
+import { useState } from "react";
 
 type CreateAppFormProps = {
   open: boolean;
@@ -7,6 +12,18 @@ type CreateAppFormProps = {
 };
 
 export default function CreateAppForm({ open, setOpen }: CreateAppFormProps) {
+  const appStore = useAppStore();
+  const [appName, setAppName] = useState("");
+  const handleSubmitApp = async (e: any) => {
+    e.preventDefault();
+    const res = await postApp({
+      name: appName,
+      developer_id: appStore.id as string,
+    });
+
+    console.log(res);
+  };
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -48,11 +65,12 @@ export default function CreateAppForm({ open, setOpen }: CreateAppFormProps) {
                       id="app_name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       placeholder="E.g: carisuraudev"
+                      onChange={(e) => setAppName(e.target.value)}
                     />
                   </div>
                   <div className="flex justify-end">
                     <button
-                      onClick={() => alert("submmitted")}
+                      onClick={(e) => void handleSubmitApp(e)}
                       className="mt-2 rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
                       Submit

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "./index";
 
 export type UserData = {
     email: string;
@@ -11,15 +11,21 @@ type AppData = {
     name: string;
 }
 
+type PostAppData = {
+    name: string;
+    developer_id: string;
+}
+
 export const getApps = async (id: string) => {
 
-    const axiosInstance = axios.create({
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("token") as string}`,
-        }
-    });
-
     return await axiosInstance.get<AppData[]>(
-        (import.meta.env.VITE_API_URL as string) + `/app/developer/${id}`,
+        `/app/developer/${id}`,
     )
 };
+
+export const postApp = async (data: PostAppData) => {
+    return await axiosInstance.post(
+        "/app",
+        data
+    )
+}

@@ -24,16 +24,22 @@ export const getAllApp = async (developer_id: string) => {
 
 export const insertApp = async (data: AppRequestBody) => {
     try {
+
+        // await knexPg("Application")
+        //     .select()
         await knexPg("Application").insert({
             id: createId(),
             name: data.name,
             appKey: generateAppSecret(SecretType.KEY, 8),
             appSecret: generateAppSecret(SecretType.SECRET, 32),
-            developer_id: data.developer_id
+            developer_id: data.developer_id,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         })
 
         return { message: "Created", status: 201 }
     } catch (err: any) {
+        console.log(err)
         return { error: err.message, status: 500 }
     }
 }

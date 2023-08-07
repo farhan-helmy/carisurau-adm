@@ -1,13 +1,13 @@
 import express from "express";
 import AppController from "../controllers/appController";
-import { validate, validateToken } from "../middleware/validate";
+import { validateTokenAndSchema } from "../middleware/validate";
 import { AppSchema } from "../schema/appSchema";
 
 const router = express.Router();
 
 const appController = new AppController();
 
-router.get("/app/developer/:id", validateToken, async (req, res) => {
+router.get("/app/developer/:id", validateTokenAndSchema(), async (req, res) => {
 
     const response = await appController.getApp(req.params["id"]);
 
@@ -18,7 +18,7 @@ router.get("/app/developer/:id", validateToken, async (req, res) => {
     return res.status(200).send(response);
 });
 
-router.post("/app", validate(AppSchema), async (req, res) => {
+router.post("/app", validateTokenAndSchema(AppSchema), async (req, res) => {
     const response = await appController.createApp(req.body);
 
     if (response.status === 500) {
@@ -28,7 +28,7 @@ router.post("/app", validate(AppSchema), async (req, res) => {
     return res.status(201).send();
 });
 
-router.patch("/app", validate(AppSchema), async (req, res) => {
+router.patch("/app", validateTokenAndSchema(AppSchema), async (req, res) => {
     const response = await appController.patchApp(req.body);
 
     if (response.status === 500) {
