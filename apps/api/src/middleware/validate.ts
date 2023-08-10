@@ -23,7 +23,7 @@ export const validateTokenAndSchema = (schema?: z.Schema<any>) => {
         const data = req.body;
         schema.parse(data);
       }
-      console.log("here")
+
       // If both token and optional schema validation are successful, proceed to the next middleware or route handler
       next();
     } catch (error: any) {

@@ -11,16 +11,16 @@ type AppData = {
     name: string;
 }
 
-type PostAppData = {
+export type PostAppData = {
     name: string;
     developer_id: string;
 }
 
 export const getApps = async (id: string) => {
-
     return await axiosInstance.get<AppData[]>(
         `/app/developer/${id}`,
     )
+
 };
 
 export const postApp = async (data: PostAppData) => {

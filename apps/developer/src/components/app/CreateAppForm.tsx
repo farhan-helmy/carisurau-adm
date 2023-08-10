@@ -3,8 +3,13 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useAppStore } from "../../store/appStore";
-import { postApp } from "../../api/appsApi";
-import { useState } from "react";
+import { PostAppData, postApp } from "../../api/appsApi";
+import { useMutation } from "@tanstack/react-query";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+interface IFormInput {
+  appName: string;
+}
 
 type CreateAppFormProps = {
   open: boolean;
@@ -12,16 +17,29 @@ type CreateAppFormProps = {
 };
 
 export default function CreateAppForm({ open, setOpen }: CreateAppFormProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>();
+
   const appStore = useAppStore();
-  const [appName, setAppName] = useState("");
-  const handleSubmitApp = async (e: any) => {
-    e.preventDefault();
-    const res = await postApp({
-      name: appName,
+
+  const mutation = useMutation({
+    mutationFn: (data: PostAppData) => postApp(data),
+    onSuccess: () => {
+      return setOpen(false);
+    },
+    onError: () => {
+      alert("Application already exist");
+    },
+  });
+
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    mutation.mutate({
+      name: data.appName,
       developer_id: appStore.id as string,
     });
-
-    console.log(res);
   };
 
   return (
@@ -60,17 +78,25 @@ export default function CreateAppForm({ open, setOpen }: CreateAppFormProps) {
                   </label>
                   <div className="mt-2">
                     <input
+                      {...register("appName", {
+                        required: true,
+                        maxLength: 20,
+                      })}
                       type="text"
                       name="app_name"
                       id="app_name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       placeholder="E.g: carisuraudev"
-                      onChange={(e) => setAppName(e.target.value)}
                     />
+                    {errors.appName ? (
+                      <span className="text-red-500 text-sm">
+                        App name is required
+                      </span>
+                    ) : null}
                   </div>
                   <div className="flex justify-end">
                     <button
-                      onClick={(e) => void handleSubmitApp(e)}
+                      onClick={() => void handleSubmit(onSubmit)()}
                       className="mt-2 rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
                       Submit

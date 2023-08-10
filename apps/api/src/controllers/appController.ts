@@ -1,7 +1,7 @@
 import { insertApp, getAllApp, updateApp, AppData } from "../db/app";
 
 interface CreateAppResponse {
-    status: number;
+    status?: number;
     message?: string;
 }
 

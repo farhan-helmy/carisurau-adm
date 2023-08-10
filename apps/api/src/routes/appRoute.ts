@@ -21,8 +21,8 @@ router.get("/app/developer/:id", validateTokenAndSchema(), async (req, res) => {
 router.post("/app", validateTokenAndSchema(AppSchema), async (req, res) => {
     const response = await appController.createApp(req.body);
 
-    if (response.status === 500) {
-        return res.status(500).json(response.message).send();
+    if (response.status === 409) {
+        return res.status(409).json(response.message).send();
     }
 
     return res.status(201).send();

@@ -12,7 +12,6 @@ export default function DashboardPage() {
     getApps(appStore.id as string)
   );
 
-  console.log(data?.data.length);
   if (isError) console.log(error);
 
   if (isLoading) {
@@ -36,7 +35,7 @@ export default function DashboardPage() {
       </div>
       <div>
         <div className="mt-4">
-          {data?.data.length === 0 ? (
+          {data?.data?.length === 0 ? (
             <div className="flex flex-col justify-center items-center mt-12">
               <div className="text-2xl font-semibold">No apps created</div>
               <div className="mt-2 text-xl text-gray-500">

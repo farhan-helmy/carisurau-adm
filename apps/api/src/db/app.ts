@@ -25,8 +25,17 @@ export const getAllApp = async (developer_id: string) => {
 export const insertApp = async (data: AppRequestBody) => {
     try {
 
-        // await knexPg("Application")
-        //     .select()
+        const app = await knexPg("Application")
+            .select('*')
+            .where("name", data.name)
+            .andWhere("developer_id", data.developer_id)
+            .first()
+
+        if (app) {
+            console.log("App already exists")
+            return { message: "App already exists", status: 409 }
+        }
+        console.log("Creating app")
         await knexPg("Application").insert({
             id: createId(),
             name: data.name,
@@ -40,7 +49,7 @@ export const insertApp = async (data: AppRequestBody) => {
         return { message: "Created", status: 201 }
     } catch (err: any) {
         console.log(err)
-        return { error: err.message, status: 500 }
+        return { message: "Something went wrong", status: 500 }
     }
 }
 
