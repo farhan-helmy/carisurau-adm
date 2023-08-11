@@ -66,3 +66,15 @@ export const updateApp = async (data: AppRequestBody) => {
         return { error: err.message, status: 500 }
     }
 }
+
+export const deleteApp = async (app_id: string) => {
+    try {
+        await knexPg("Application")
+            .delete()
+            .where("id", app_id)
+
+        return { message: "Deleted", status: 200 }
+    } catch (err: any) {
+        return { error: err.message, status: 500 }
+    }
+}

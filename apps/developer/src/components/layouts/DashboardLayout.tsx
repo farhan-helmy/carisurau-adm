@@ -1,21 +1,8 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useLocation } from "react-router-dom";
-import { filterPathName } from "../../utils";
+
 import { UserButton } from "@clerk/clerk-react";
-
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl: "",
-};
-
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -31,7 +18,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const navigation = [
     {
       name: "Dashboard",
-      href: "#",
+      href: "/dashboard",
       current: location.pathname === "/dashboard",
     },
   ];
@@ -124,14 +111,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </Disclosure>
 
         <div className="py-10">
-          <header>
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-                {filterPathName(location.pathname).charAt(0).toUpperCase() +
-                  filterPathName(location.pathname).slice(1)}
-              </h1>
-            </div>
-          </header>
           <main>
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 h-full">
               {children}

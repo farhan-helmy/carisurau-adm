@@ -6,7 +6,7 @@ export type UserData = {
     name: string | null;
 };
 
-type AppData = {
+export type AppData = {
     id: string;
     name: string;
 }
@@ -27,5 +27,11 @@ export const postApp = async (data: PostAppData) => {
     return await axiosInstance.post(
         "/app",
         data
+    )
+}
+
+export const deleteApp = async (app_id: string) => {
+    return await axiosInstance.delete(
+        `/app/${app_id}`
     )
 }

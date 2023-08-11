@@ -13,11 +13,14 @@ import {
 } from "@clerk/clerk-react";
 import DashboardPage from "./pages/dashboard.tsx";
 import CallbackPage from "./pages/callback.tsx";
+import ErrorPage from "./pages/error.tsx";
+import AppPage from "./pages/app/index.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",
@@ -53,6 +56,19 @@ const router = createBrowserRouter([
           <>
             <SignedIn>
               <DashboardPage />
+            </SignedIn>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+          </>
+        ),
+      },
+      {
+        path: "/dashboard/:appId",
+        element: (
+          <>
+            <SignedIn>
+              <AppPage />
             </SignedIn>
             <SignedOut>
               <RedirectToSignIn />

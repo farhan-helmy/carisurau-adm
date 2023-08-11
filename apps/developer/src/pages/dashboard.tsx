@@ -4,6 +4,7 @@ import CreateAppForm from "../components/app/CreateAppForm";
 import { useQuery } from "@tanstack/react-query";
 import { getApps } from "../api/appsApi";
 import { useAppStore } from "../store/appStore";
+import AppList from "../components/app/AppList";
 
 export default function DashboardPage() {
   const [open, setOpen] = useState(false);
@@ -25,7 +26,8 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex justify-start mt-2">
+      <div className="flex justify-between mt-2">
+        <div className="text-2xl font-semibold text-slate-800">Your apps</div>
         <button
           onClick={() => setOpen(true)}
           className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -43,15 +45,18 @@ export default function DashboardPage() {
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {data?.data.map((app) => (
-                <div key={app.id} className="bg-white shadow-sm rounded-md p-4">
-                  <div className="flex justify-between">
-                    <div className="text-xl font-semibold">{app.name}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <>
+              <ul
+                role="list"
+                className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8"
+              >
+                {data?.data.map((app, idx) => (
+                  <li key={idx} className="rounded-xl border border-gray-200">
+                    <AppList name={app.name} id={app.id} />
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
         </div>
       </div>

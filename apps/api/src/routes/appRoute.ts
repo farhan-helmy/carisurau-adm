@@ -38,4 +38,15 @@ router.patch("/app", validateTokenAndSchema(AppSchema), async (req, res) => {
     return res.status(200).send();
 });
 
+router.delete("/app/:id", validateTokenAndSchema(AppSchema), async (req, res) => {
+
+    const response = await appController.removeApp(req.params["id"]);
+
+    if (response.status === 500) {
+        return res.status(500).json(response).send();
+    }
+
+    return res.status(202).send(response);
+});
+
 export default router;

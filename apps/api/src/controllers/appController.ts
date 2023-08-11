@@ -1,4 +1,4 @@
-import { insertApp, getAllApp, updateApp, AppData } from "../db/app";
+import { insertApp, getAllApp, updateApp, AppData, deleteApp } from "../db/app";
 
 interface CreateAppResponse {
     status?: number;
@@ -26,6 +26,10 @@ export default class PingController {
     }
     public async patchApp(data: AppRequestBody): Promise<CreateAppResponse> {
         const res = await updateApp(data)
+        return res
+    }
+    public async removeApp(app_id: string): Promise<CreateAppResponse> {
+        const res = await deleteApp(app_id)
         return res
     }
 }
