@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import CreateAppForm from "../components/app/CreateAppForm";
 import { useQuery } from "@tanstack/react-query";
@@ -9,9 +9,18 @@ import AppList from "../components/app/AppList";
 export default function DashboardPage() {
   const [open, setOpen] = useState(false);
   const appStore = useAppStore();
-  const { isLoading, isError, data, error } = useQuery(["apps"], () =>
+  const { isLoading, isError, data, error, refetch } = useQuery(["apps"], () =>
     getApps(appStore.id as string)
   );
+
+  useEffect(() => {
+    async function refetchData() {
+      await refetch();
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    refetchData();
+  }, [open]);
 
   if (isError) console.log(error);
 

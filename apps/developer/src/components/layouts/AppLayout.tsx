@@ -16,29 +16,16 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
-  CalendarIcon,
-  ChartPieIcon,
   Cog6ToothIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
   HomeIcon,
-  UsersIcon,
   XMarkIcon,
+  KeyIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
 
 const navigation = [
   { name: "Overview", href: "#", icon: HomeIcon, current: true },
-  { name: "Api Key", href: "#", icon: UsersIcon, current: false },
+  { name: "API Key", href: "#", icon: KeyIcon, current: false },
   { name: "Settings", href: "#", icon: Cog6ToothIcon, current: false },
-];
-const teams = [
-  { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
-  { id: 2, name: "Tailwind Labs", href: "#", initial: "T", current: false },
-  { id: 3, name: "Workcation", href: "#", initial: "W", current: false },
 ];
 
 function classNames(...classes: string[]) {
@@ -158,7 +145,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:flex lg:w-64 lg:flex-col lg:mt-4">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-gray-200 bg-white px-6 pb-4">
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-gray-200 bg-white px-2 pb-4">
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>

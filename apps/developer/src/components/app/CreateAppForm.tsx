@@ -71,7 +71,7 @@ export default function CreateAppForm({ open, setOpen }: CreateAppFormProps) {
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                 <div>
                   <label
-                    htmlFor="app_name"
+                    htmlFor="appName"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Insert your app name
@@ -83,8 +83,8 @@ export default function CreateAppForm({ open, setOpen }: CreateAppFormProps) {
                         maxLength: 20,
                       })}
                       type="text"
-                      name="app_name"
-                      id="app_name"
+                      name="appName"
+                      id="appName"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       placeholder="E.g: carisuraudev"
                     />
