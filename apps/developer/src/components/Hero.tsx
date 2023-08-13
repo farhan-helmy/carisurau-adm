@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "@clerk/clerk-react";
+import { UserButton } from "@clerk/clerk-react";
 
 export default function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,12 +34,7 @@ export default function Hero() {
           <div className="hidden lg:flex lg:gap-x-12"></div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             {isSignedIn ? (
-              <a
-                href="/dashboard"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Dashboard
-              </a>
+             <UserButton />
             ) : (
               <a
                 href="/sign-in"

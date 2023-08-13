@@ -15,6 +15,7 @@ import DashboardPage from "./pages/dashboard.tsx";
 import CallbackPage from "./pages/callback.tsx";
 import ErrorPage from "./pages/error.tsx";
 import AppPage from "./pages/app/index.tsx";
+import ApiPage from "./pages/app/api.tsx";
 
 const router = createBrowserRouter([
   {
@@ -27,11 +28,11 @@ const router = createBrowserRouter([
         element: <IndexPage />,
       },
       {
-        path: "/callback",
+        path: "callback",
         element: <CallbackPage />,
       },
       {
-        path: "/sign-in/*",
+        path: "sign-in/*",
         element: (
           <div className="flex items-center justify-center h-screen">
             <div>
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/sign-up/*",
+        path: "sign-up/*",
         element: (
           <div className="flex items-center justify-center h-screen">
             <div>
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard",
+        path: "dashboard",
         element: (
           <>
             <SignedIn>
@@ -62,19 +63,27 @@ const router = createBrowserRouter([
             </SignedOut>
           </>
         ),
-      },
-      {
-        path: "/dashboard/:appId",
-        element: (
-          <>
-            <SignedIn>
-              <AppPage />
-            </SignedIn>
-            <SignedOut>
-              <RedirectToSignIn />
-            </SignedOut>
-          </>
-        ),
+        children: [
+          {
+            path: ":appId",
+            element: (
+              <>
+                <SignedIn>
+                  <AppPage />
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            ),
+            children: [
+              {
+                path: ":appId/api",
+                element: <ApiPage />,
+              },
+            ],
+          },
+        ],
       },
     ],
   },
