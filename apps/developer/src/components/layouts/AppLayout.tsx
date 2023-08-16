@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useMatch } from "react-router-dom";
 import {
   Bars3Icon,
   Cog6ToothIcon,
@@ -7,12 +8,7 @@ import {
   XMarkIcon,
   KeyIcon,
 } from "@heroicons/react/24/outline";
-
-const navigation = [
-  { name: "Overview", href: "#", icon: HomeIcon, current: true },
-  { name: "API Key", href: "#", icon: KeyIcon, current: false },
-  { name: "Settings", href: "#", icon: Cog6ToothIcon, current: false },
-];
+import { Link, useParams } from "react-router-dom";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -23,6 +19,29 @@ type AppLayoutProps = {
 };
 
 export default function AppLayout({ children }: AppLayoutProps) {
+  const param = useParams();
+  const match = useMatch(`/dashboard/${param.appId as string}`);
+  console.log(match);
+  const navigation = [
+    {
+      name: "Overview",
+      href: `/dashboard/${param.appId as string}`,
+      icon: HomeIcon,
+      current: useMatch(`/dashboard/${param.appId as string}`),
+    },
+    {
+      name: "API Key",
+      href: `/dashboard/${param.appId as string}/api`,
+      icon: KeyIcon,
+      current: useMatch(`/dashboard/${param.appId as string}/api`),
+    },
+    {
+      name: "Settings",
+      href: `/dashboard/${param.appId as string}/settings`,
+      icon: Cog6ToothIcon,
+      current: useMatch(`/dashboard/${param.appId as string}/settings`),
+    },
+  ];
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -95,8 +114,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
                           <ul role="list" className="-mx-2 space-y-1">
                             {navigation.map((item) => (
                               <li key={item.name}>
-                                <a
-                                  href={item.href}
+                                <Link
+                                  to={item.href}
                                   className={classNames(
                                     item.current
                                       ? "bg-gray-50 text-indigo-600"
@@ -114,7 +133,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
                                     aria-hidden="true"
                                   />
                                   {item.name}
-                                </a>
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -138,8 +157,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
                   <ul role="list" className="-mx-2 space-y-1">
                     {navigation.map((item) => (
                       <li key={item.name}>
-                        <a
-                          href={item.href}
+                        <Link
+                          to={item.href}
                           className={classNames(
                             item.current
                               ? "bg-gray-50 text-indigo-600"
@@ -157,7 +176,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>

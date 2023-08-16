@@ -18,6 +18,17 @@ router.get("/app/developer/:id", validateTokenAndSchema(), async (req, res) => {
     return res.status(200).send(response);
 });
 
+router.get("/app/:id", validateTokenAndSchema(), async (req, res) => {
+
+    const response = await appController.getOneApp(req.params["id"]);
+
+    // if (response === 500) {
+    //     return res.status(500).json(response).send();
+    // }
+
+    return res.status(200).send(response);
+});
+
 router.post("/app", validateTokenAndSchema(AppSchema), async (req, res) => {
     const response = await appController.createApp(req.body);
 

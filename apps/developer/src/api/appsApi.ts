@@ -9,12 +9,20 @@ export type UserData = {
 export type AppData = {
     id: string;
     name: string;
+    appKey?: string;
+    appSecret?: string
 }
 
 export type PostAppData = {
     name: string;
     developer_id: string;
 }
+
+export const getApp = async (id: string) => {
+    return await axiosInstance.get<AppData>(
+        `/app/${id}`,
+    )
+};
 
 export const getApps = async (id: string) => {
     return await axiosInstance.get<AppData[]>(

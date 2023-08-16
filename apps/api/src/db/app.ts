@@ -22,6 +22,20 @@ export const getAllApp = async (developer_id: string) => {
     }
 }
 
+export const getApp = async (app_id: string) => {
+    try {
+        const data: AppData | undefined = await knexPg<AppData>("Application")
+            .select("*")
+            .where("id", app_id)
+            .first()
+
+        return data
+    } catch (err: any) {
+
+        return err
+    }
+}
+
 export const insertApp = async (data: AppRequestBody) => {
     try {
 

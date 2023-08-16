@@ -16,6 +16,7 @@ import CallbackPage from "./pages/callback.tsx";
 import ErrorPage from "./pages/error.tsx";
 import AppPage from "./pages/app/index.tsx";
 import ApiPage from "./pages/app/api.tsx";
+import SettingsPage from "./pages/app/settings.tsx";
 
 const router = createBrowserRouter([
   {
@@ -63,27 +64,45 @@ const router = createBrowserRouter([
             </SignedOut>
           </>
         ),
-        children: [
-          {
-            path: ":appId",
-            element: (
-              <>
-                <SignedIn>
-                  <AppPage />
-                </SignedIn>
-                <SignedOut>
-                  <RedirectToSignIn />
-                </SignedOut>
-              </>
-            ),
-            children: [
-              {
-                path: ":appId/api",
-                element: <ApiPage />,
-              },
-            ],
-          },
-        ],
+      },
+      {
+        path: "dashboard/:appId",
+        element: (
+          <>
+            <SignedIn>
+              <AppPage />
+            </SignedIn>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+          </>
+        ),
+      },
+      {
+        path: "dashboard/:appId/api",
+        element: (
+          <>
+            <SignedIn>
+              <ApiPage />
+            </SignedIn>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+          </>
+        ),
+      },
+      {
+        path: "dashboard/:appId/settings",
+        element: (
+          <>
+            <SignedIn>
+              <SettingsPage />
+            </SignedIn>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+          </>
+        ),
       },
     ],
   },

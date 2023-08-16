@@ -2,7 +2,7 @@ import { EyeIcon, Cog6ToothIcon } from "@heroicons/react/20/solid";
 import { AppData } from "../../api/appsApi";
 import { Link } from "react-router-dom";
 
-export default function AppList({ name }: AppData) {
+export default function AppList({ name, id }: AppData) {
   return (
     <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
       <img
@@ -14,7 +14,7 @@ export default function AppList({ name }: AppData) {
       <div className="relative ml-auto flex gap-2">
         <Link
           className="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-500"
-          to={`/dashboard/${name}`}
+          to={`/dashboard/${id}`}
         >
           <EyeIcon className="h-4 w-4" aria-hidden="true" />
         </Link>
