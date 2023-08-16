@@ -2,7 +2,7 @@ import express from "express";
 import { validateTokenAndSchema } from "../middleware/validate";
 import { SurauSchema } from "../schema/surauSchema";
 import SurauController from "../controllers/surauController";
-import { validateDev } from "../middleware/validateDev";
+import { comingSoon, validateDev } from "../middleware/validateDev";
 
 const router = express.Router();
 
@@ -18,17 +18,17 @@ router.post("/surau", validateTokenAndSchema(SurauSchema), async (req, res) => {
     return res.send(response);
 });
 
-router.get("/surau/:id", async (req, res) => {
+router.get("/surau/:id", comingSoon(), async (req, res) => {
     const response = await surauController.getOneSurau(req.params.id);
     return res.send(response);
 });
 
-router.patch("/surau/:id", async (req, res) => {
+router.patch("/surau/:id", comingSoon(), async (req, res) => {
     const response = await surauController.patchSurau(req.params.id);
     return res.sendStatus(200);
 });
 
-router.delete("/surau/:id", async (req, res) => {
+router.delete("/surau/:id", comingSoon(), async (req, res) => {
     const response = await surauController.deleteSurau(req.params.id);
     return res.sendStatus(200);
 });

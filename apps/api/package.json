@@ -10,12 +10,11 @@
   "license": "MIT",
   "scripts": {
     "start": "node build/index.js",
-    "predev": "yarn swagger",
     "prebuild": "yarn swagger",
     "build": "tsc",
-    "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec\"",
-    "dev:local": "nodemon -r dotenv/config dotenv_config_path=.env.local src/index.ts",
-    "swagger": "tsoa spec"
+    "prod": "ts-node -r dotenv/config src/index.ts",
+    "dev": "concurrently \"nodemon\"",
+    "dev:local": "nodemon -r dotenv/config dotenv_config_path=.env.local src/index.ts"
   },
   "nodemonConfig": {
     "watch": [
