@@ -2,12 +2,13 @@ import express from "express";
 import { validateTokenAndSchema } from "../middleware/validate";
 import { SurauSchema } from "../schema/surauSchema";
 import SurauController from "../controllers/surauController";
+import { validateDev } from "../middleware/validateDev";
 
 const router = express.Router();
 
 const surauController = new SurauController();
 
-router.get("/surau", async (_req, res) => {
+router.get("/surau", validateDev(), async (_req, res) => {
     const response = await surauController.getSurau();
     return res.send(response);
 });

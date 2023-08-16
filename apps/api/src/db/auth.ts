@@ -55,3 +55,25 @@ export const authenticateUser = async (data: AuthenticateUserData) => {
         }
     }
 }
+
+export const validateApp = async (app_key: string, app_secret: string) => {
+    try {
+        const app = await knexPg("Application").where({ appKey: app_key, appSecret: app_secret }).first();
+        console.log(app)
+        if (!app) {
+            return {
+                status: "failed"
+            }
+        }
+
+        return {
+            status: "success"
+        }
+
+    } catch (err: any) {
+
+        return {
+            status: "failed"
+        }
+    }
+}

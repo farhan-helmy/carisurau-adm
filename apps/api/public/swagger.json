@@ -177,7 +177,11 @@
 						}
 					}
 				},
-				"security": [],
+				"security": [
+					{
+						"": []
+					}
+				],
 				"parameters": []
 			},
 			"post": {

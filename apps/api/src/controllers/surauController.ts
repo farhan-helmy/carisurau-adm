@@ -1,4 +1,4 @@
-import {Body, Delete, Get, Patch, Post, Route} from 'tsoa'
+import { Body, Delete, Get, Patch, Post, Route, Security } from 'tsoa'
 import { getAllSurau, updateSurau, removeSurau, getSurau, addSurau } from '../db/surau'
 import { Surau } from '../types/surau'
 
