@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node build/index.js",
     "build": "tsc",
-    "prod": "ts-node -r dotenv/config src/index.ts",
+    "prod": "nodemon -r dotenv/config src/index.ts",
     "dev": "concurrently \"nodemon\"",
     "dev:local": "nodemon -r dotenv/config dotenv_config_path=.env.local src/index.ts"
   },
@@ -42,6 +42,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.1.3",
     "express": "^4.18.2",
+    "express-rate-limit": "^6.9.0",
     "jsonwebtoken": "^9.0.1",
     "knex": "^2.4.2",
     "morgan": "^1.10.0",

@@ -1,4 +1,4 @@
-import { Get, Route } from "tsoa";
+import knexPg from "../db";
 
 interface PingResponse {
   message: string;
@@ -6,8 +6,12 @@ interface PingResponse {
 
 export default class PingController {
   public async getMessage(): Promise<PingResponse> {
-    return {
-      message: "ok",
-    };
+    try {
+      const response = await knexPg.raw("SELECT 1");
+
+      return { message: "All good" };
+    } catch (err: any) {
+      return { message: `${err}` };
+    }
   }
 }

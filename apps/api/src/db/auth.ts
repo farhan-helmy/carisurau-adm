@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import knexPg from ".";
 
 type AuthenticateUserData = {
+    id?: any;
     email: string;
     sid: string;
     name: string;
@@ -32,6 +33,7 @@ export const authenticateUser = async (data: AuthenticateUserData) => {
 
     try {
         const developer = await knexPg("Developer").where({ email: data.email }).first();
+
         if (developer) {
             const updatedDeveloper = await knexPg("Developer").where({ email: data.email }).update({ token: data.sid }).returning("*");
             returnData = updatedDeveloper[0];
@@ -40,7 +42,7 @@ export const authenticateUser = async (data: AuthenticateUserData) => {
             returnData = newDeveloper[0];
         }
 
-        const token = jwt.sign({ id: developer.id }, process.env.JWT_SECRET as string)
+        const token = jwt.sign({ id: returnData.id }, process.env.JWT_SECRET as string)
 
         returnData.token = token;
         return {
@@ -59,7 +61,7 @@ export const authenticateUser = async (data: AuthenticateUserData) => {
 export const validateApp = async (app_key: string, app_secret: string) => {
     try {
         const app = await knexPg("Application").where({ appKey: app_key, appSecret: app_secret }).first();
-        console.log(app)
+
         if (!app) {
             return {
                 status: "failed"

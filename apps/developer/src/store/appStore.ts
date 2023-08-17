@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
 
 type State = {
     id: string | null;
@@ -7,14 +6,9 @@ type State = {
 }
 
 export const useAppStore = create<State>()(
-    persist(
-        (set) => ({
-            id: null,
-            setId: (id: string) => set({ id }),
-        }),
-        {
-            name: 'application',
-        },
-    ),
+    (set) => ({
+        id: null,
+        setId: (id: string) => set({ id }),
+    }),
 )
 

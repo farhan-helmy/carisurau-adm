@@ -29,7 +29,6 @@ export default function CallbackPage() {
     if (isLoaded) {
       getToken()
         .then((token) => {
-          console.log(token);
           mutation.mutate({
             email: user?.emailAddresses[0].toString() as string,
             token: token,

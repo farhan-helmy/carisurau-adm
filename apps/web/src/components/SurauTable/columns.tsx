@@ -16,25 +16,21 @@ export type Surau = {
 };
 
 const approveSurau = async (id: string) => {
-  console.log(id);
   const res = await fetch(import.meta.env.VITE_API_URL + `surau/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
   });
-  console.log(res);
 };
 
 const deleteSurau = async (id: string) => {
-  console.log(id);
   const res = await fetch(import.meta.env.VITE_API_URL + `surau/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
   });
-  console.log(res);
 };
 
 export const columns: ColumnDef<Surau>[] = [
@@ -48,10 +44,12 @@ export const columns: ColumnDef<Surau>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex items-center justify-left gap-2">
-          <Link to={`/surau/${row.original.unique_name}`}>{row.original.unique_name}</Link>
+          <Link to={`/surau/${row.original.unique_name}`}>
+            {row.original.unique_name}
+          </Link>
         </div>
       );
-    }
+    },
   },
   {
     accessorKey: "is_approved",

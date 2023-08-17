@@ -6,28 +6,27 @@ import authRoute from "./routes/authRoute";
 import pingRoute from "./routes/pingRoute";
 import ratingRoute from "./routes/ratingRoute";
 import appRoute from "./routes/appRoute";
-import serverless from 'serverless-http'
+import rateLimit from "express-rate-limit";
 
 // eslint-disable-next-line turbo/no-undeclared-env-vars
 const PORT = process.env.PORT || 8000;
 
 const app: Application = express();
+app.set('trust proxy', 1)
+app.get('/ip', (request, response) => response.send(request.ip))
 
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(cors(
   {
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "http://100.83.54.101:5174",
-      "http://192.168.1.231:5173",
-      "http://192.168.1.231:5174",
-      "http://100.113.198.98:5174",
-      "http://100.113.198.98:5173",
-    ]
+    origin: ["*", "https://developer.carisurau.com"]
   }
 ));
+
+app.use(rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+}));
 
 app.use(surauRoute);
 app.use(authRoute);

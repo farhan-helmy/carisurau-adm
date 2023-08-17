@@ -16,8 +16,6 @@ const ViewSurauPage = () => {
       ),
   });
 
-  console.log(data);
-
   const handleDeleteReview = async (rating_id: string) => {
     await fetch(import.meta.env.VITE_API_URL + `rating/${rating_id}`, {
       method: "DELETE",
@@ -33,8 +31,8 @@ const ViewSurauPage = () => {
     return <div>Loading...</div>;
   }
 
-  if(data?.[0].rating_id === null) {
-    return <div className="text-3xl">Review empty</div>
+  if (data?.[0].rating_id === null) {
+    return <div className="text-3xl">Review empty</div>;
   }
 
   return (

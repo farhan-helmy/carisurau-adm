@@ -25,6 +25,7 @@ export const validateTokenAndSchema = (schema?: z.Schema<any>) => {
       }
 
       // If both token and optional schema validation are successful, proceed to the next middleware or route handler
+      req.body.id = decoded.id;
       next();
     } catch (error: any) {
       if (error instanceof jwt.JsonWebTokenError || error.message === 'Unauthorized') {

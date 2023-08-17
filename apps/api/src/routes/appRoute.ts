@@ -9,7 +9,7 @@ const appController = new AppController();
 
 router.get("/app/developer/:id", validateTokenAndSchema(), async (req, res) => {
 
-    const response = await appController.getApp(req.params["id"]);
+    const response = await appController.getApp(req.body.id);
 
     // if (response === 500) {
     //     return res.status(500).json(response).send();

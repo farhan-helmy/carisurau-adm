@@ -20,8 +20,7 @@ type AppLayoutProps = {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   const param = useParams();
-  const match = useMatch(`/dashboard/${param.appId as string}`);
-  console.log(match);
+
   const navigation = [
     {
       name: "Overview",

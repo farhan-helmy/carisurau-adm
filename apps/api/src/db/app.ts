@@ -46,10 +46,10 @@ export const insertApp = async (data: AppRequestBody) => {
             .first()
 
         if (app) {
-            console.log("App already exists")
+
             return { message: "App already exists", status: 409 }
         }
-        console.log("Creating app")
+
         await knexPg("Application").insert({
             id: createId(),
             name: data.name,
