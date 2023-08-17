@@ -10,7 +10,6 @@
   "license": "MIT",
   "scripts": {
     "start": "node build/index.js",
-    "prebuild": "yarn swagger",
     "build": "tsc",
     "prod": "ts-node -r dotenv/config src/index.ts",
     "dev": "concurrently \"nodemon\"",
