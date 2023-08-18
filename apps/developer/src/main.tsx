@@ -17,6 +17,7 @@ import ErrorPage from "./pages/error.tsx";
 import AppPage from "./pages/app/index.tsx";
 import ApiPage from "./pages/app/api.tsx";
 import SettingsPage from "./pages/app/settings.tsx";
+import Logout from "./pages/logout.tsx";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             </div>
           </div>
         ),
+      },
+      {
+        path: "logout",
+        element: <Logout />,
       },
       {
         path: "sign-up/*",

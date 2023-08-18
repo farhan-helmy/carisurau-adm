@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "@clerk/clerk-react";
@@ -7,12 +7,6 @@ import { UserButton } from "@clerk/clerk-react";
 export default function Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isSignedIn } = useAuth();
-
-  useEffect(() => {
-    if (!isSignedIn && localStorage.getItem("token")) {
-      localStorage.removeItem("token");
-    }
-  }, []);
 
   return (
     <div className="bg-white">
